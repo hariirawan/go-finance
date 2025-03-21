@@ -8,11 +8,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IAuthCredentials & { fullname: string }>();
+  const { register, handleSubmit } = useForm<
+    IAuthCredentials & { fullname: string }
+  >();
 
   const { handleRegister, isLoading } = useRegister();
 

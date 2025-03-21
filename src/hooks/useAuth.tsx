@@ -1,4 +1,3 @@
-import { accounts } from "@/contants/accounts";
 import { IAuthCredentials } from "@/types/auth";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -13,20 +12,26 @@ export function useRegister() {
     mutationFn: (data: IAuthCredentials) => {
       return axios.post(`${API_URL}/register`, data);
     },
-    onSuccess: (_, { email }) => {
+    onSuccess: () => {
       toast.success("Register Success", {
         description: "Please login to continue",
       });
       router.push("/login");
     },
-    onError: (error: any) => {
-      toast.error("Error", {
-        description: error?.response?.data?.error ?? "Something went wrong",
-      });
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        toast.error("Error", {
+          description: error?.response?.data?.error ?? "Something went wrong",
+        });
+      } else {
+        toast.error("Error", {
+          description: "Something went wrong",
+        });
+      }
     },
   });
 
-  const handleRegister = (data: any) => {
+  const handleRegister = (data: IAuthCredentials) => {
     mutation.mutate(data);
   };
 
@@ -47,10 +52,16 @@ export function useLogin() {
         router.replace("/admin");
       }
     },
-    onError: (error: any) => {
-      toast.error("Error", {
-        description: error?.response?.data?.error ?? "Something went wrong",
-      });
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        toast.error("Error", {
+          description: error?.response?.data?.error ?? "Something went wrong",
+        });
+      } else {
+        toast.error("Error", {
+          description: "Something went wrong",
+        });
+      }
     },
   });
 

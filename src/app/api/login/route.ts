@@ -7,50 +7,57 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    const { data } = await axios.post(`${API_URL}/login`, {
-      email,
-      password,
-    });
 
-    if (!data.token) {
+    if (!API_URL) {
+      return NextResponse.json(
+        { error: "Server misconfiguration: API URL is missing" },
+        { status: 500 }
+      );
+    }
+
+    const { data } = await axios.post(`${API_URL}/login`, { email, password });
+
+    if (!data?.token) {
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
       );
     }
 
-    const userId = accounts.find((user) => user.email === email)?.id;
-
-    if (!userId) {
-      return NextResponse.json(
-        { error: "Invalid credentials" },
-        { status: 401 }
-      );
+    const user = accounts.find(
+      (user: { email: string; id: number }) => user.email === email
+    );
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
-    (await cookies()).set("userId", `${userId}`, {
+    const cookieStore = await cookies();
+    cookieStore.set("userId", String(user.id), {
       httpOnly: true,
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: 7 * 24 * 60 * 60, // 7 hari
       path: "/",
     });
 
-    (await cookies()).set("token", data.token, {
+    cookieStore.set("token", data.token, {
       httpOnly: true,
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: 7 * 24 * 60 * 60, // 7 hari
       path: "/",
     });
 
     return NextResponse.json({ success: true, token: data.token });
-  } catch (error: any) {
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return NextResponse.json(
+        { message: error.response?.data?.error || "Something went wrong" },
+        { status: error.response?.status || 500 }
+      );
+    }
+
     return NextResponse.json(
-      {
-        error: error?.response
-          ? error.response.data.error
-          : "Something went wrong",
-      },
-      { status: error?.response?.status ?? 500 }
+      { error: "Internal Server Error" },
+      { status: 500 }
     );
   }
 }

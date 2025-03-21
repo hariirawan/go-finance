@@ -10,11 +10,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IAuthCredentials>();
+  const { register, handleSubmit } = useForm<IAuthCredentials>();
 
   const { handleLogin, isProcessing } = useLogin();
 
@@ -53,7 +49,7 @@ export default function Login() {
             Login
           </button>
           <span className="text-center mt-4">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/register" className="font-bold text-blue-600">
               Register
             </Link>

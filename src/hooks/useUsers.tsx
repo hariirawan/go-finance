@@ -25,7 +25,7 @@ export const useUsers = (searchQuery: string) => {
       }
     },
     onSuccess: (data, { id }) => {
-      queryClient.setQueryData(["users"], (oldData: any) => {
+      queryClient.setQueryData(["users"], (oldData: { data: IUser[] }) => {
         if (!oldData) return { data: [data.data] };
         return {
           data: id
@@ -43,7 +43,7 @@ export const useUsers = (searchQuery: string) => {
       return axios.delete(`${API_URL}/users/${data.id}`);
     },
     onSuccess: (data, { id }) => {
-      queryClient.setQueryData(["users"], (oldData: any) => {
+      queryClient.setQueryData(["users"], (oldData: { data: IUser[] }) => {
         if (!oldData) return { data: [data.data] };
         return {
           data: oldData.data.filter((user: IUser) => user.id !== id),

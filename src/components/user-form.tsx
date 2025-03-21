@@ -47,7 +47,7 @@ export function UserForm({
   open: boolean;
   setOpen: (open: boolean) => void;
   defaultValue: IUser;
-  handleSubmit: (data: any) => void;
+  handleSubmit: (data: IUser) => void;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,7 +60,7 @@ export function UserForm({
     form.setValue("first_name", defaultValue.first_name);
     form.setValue("last_name", defaultValue.last_name);
     form.setValue("email", defaultValue.email);
-  }, [defaultValue]);
+  }, [defaultValue, form]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     handleSubmit(values);

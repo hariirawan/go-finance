@@ -14,9 +14,7 @@ import { useProfile } from "@/hooks/useProfile";
 
 export default function NavUser() {
   const { handleLogout } = useLogout();
-  const { data, isLoading } = useProfile();
-
-  console.log(data);
+  const { data } = useProfile();
 
   return (
     <DropdownMenu>

@@ -27,28 +27,28 @@ export default function Admin() {
   const [isConfirmation, setIsConfirmation] = React.useState(false);
 
   return (
-    <div className="bg-gray-50 h-screen">
+    <div className="bg-gray-50 min-h-screen max-w-screen over">
       {isProcessing && <LoadingIndicator />}
-      <div className="bg-blue-500 w-full">
-        <div className="container flex justify-end items-center mx-auto">
+      <div className="sticky-top left-0 right-0 bg-blue-500 w-full">
+        <div className="container flex justify-start md:justify-end items-center mx-auto">
           <NavUser />
         </div>
       </div>
 
-      <div className="pt-24">
+      <div className="pt-24 px-2">
         <div className="container bg-white mx-auto">
-          <div className="p-2 flex flex-row justify-between">
-            <h2>Users</h2>
+          <div className="p-3 flex flex-row justify-between">
+            <h2 className="text-2xl font-bold">Users</h2>
             <Button
               onClick={() => {
                 setOpen(true);
-                setDefaultValue(value);
+                setDefaultValue({ ...value });
               }}
             >
               Add User
             </Button>
           </div>
-          <div className="flex flex-row items-center px-4 py-3">
+          <div className="flex flex-row items-center px-4 py-3 min-w-full">
             <input
               type="text"
               placeholder="Search users"
@@ -57,47 +57,51 @@ export default function Admin() {
             />
             <IconSearch size={20} className="text-gray-400" />
           </div>
-          <table className="bg-gray-50 border border-gray-200 min-w-full">
-            <thead className="border-b border-gray-200 border-t">
-              <tr>
-                <th className="text-left px-4 py-3">
-                  <input type="checkbox" />
-                </th>
-                <th className="text-left px-4 py-3">First Name</th>
-                <th className="text-left px-4 py-3">Last Name</th>
-                <th className="text-left px-4 py-3">Email</th>
-                <th className="text-right px-4 py-3">Action</th>
-              </tr>
-            </thead>
-            <tbody className="dark:divide-gray-700 divide-gray-200 divide-y">
-              {data?.map((users) => (
-                <tr key={users.id}>
-                  <td className="text-left px-4 py-3">
+          <div className="overflow-x-auto">
+            <table className="bg-gray-50 border border-gray-200 min-w-full">
+              <thead className="border-b border-gray-200 border-t">
+                <tr>
+                  <th className="text-left px-4 py-3">
                     <input type="checkbox" />
-                  </td>
-                  <td className="text-left px-4 py-3">{users.first_name}</td>
-                  <td className="text-left px-4 py-3">{users.last_name}</td>
-                  <td className="text-left px-4 py-3">{users.email}</td>
-                  <td className="flex justify-end px-4 py-3">
-                    <IconEdit
-                      size={24}
-                      onClick={() => {
-                        setOpen(true);
-                        setDefaultValue(users);
-                      }}
-                    />
-                    <IconTrash
-                      size={24}
-                      onClick={() => {
-                        setIsConfirmation(true);
-                        setDefaultValue(users);
-                      }}
-                    />
-                  </td>
+                  </th>
+                  <th className="text-left px-4 py-3">First Name</th>
+                  <th className="text-left px-4 py-3">Last Name</th>
+                  <th className="text-left px-4 py-3">Email</th>
+                  <th className="text-right px-4 py-3">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="dark:divide-gray-700 divide-gray-200 divide-y">
+                {data?.map((users) => (
+                  <tr key={users.id}>
+                    <td className="text-left px-4 py-3">
+                      <input type="checkbox" />
+                    </td>
+                    <td className="text-left px-4 py-3">{users.first_name}</td>
+                    <td className="text-left px-4 py-3">{users.last_name}</td>
+                    <td className="text-left px-4 py-3">{users.email}</td>
+                    <td className="flex justify-end px-4 py-3 items-center">
+                      <div
+                        className="bg-gray-300 p-2 rounded-full mr-2 cursor-pointer"
+                        onClick={() => {
+                          setOpen(true);
+                          setDefaultValue(users);
+                        }}
+                      >
+                        <IconEdit size={24} />
+                      </div>
+                      <IconTrash
+                        size={24}
+                        onClick={() => {
+                          setIsConfirmation(true);
+                          setDefaultValue(users);
+                        }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="h-14" />
         </div>
       </div>

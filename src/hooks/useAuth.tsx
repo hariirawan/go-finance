@@ -1,3 +1,4 @@
+import { accounts } from "@/contants/accounts";
 import { IAuthCredentials } from "@/types/auth";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -5,9 +6,18 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export function useRegister() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  const router = useRouter();
   const mutation = useMutation({
     mutationFn: (data: IAuthCredentials) => {
-      return axios.post("https://reqres.in/api/register", data);
+      return axios.post(`${API_URL}/register`, data);
+    },
+    onSuccess: (_, { email }) => {
+      toast.success("Register Success", {
+        description: "Please login to continue",
+      });
+      router.push("/login");
     },
     onError: (error: any) => {
       toast.error("Error", {

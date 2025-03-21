@@ -4,21 +4,19 @@ import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLogout } from "@/hooks/useAuth";
+import { useProfile } from "@/hooks/useProfile";
 
 export default function NavUser() {
   const { handleLogout } = useLogout();
+  const { data, isLoading } = useProfile();
+
+  console.log(data);
 
   return (
     <DropdownMenu>
@@ -28,11 +26,12 @@ export default function NavUser() {
           <div className="flex flex-col text-white ml-3">
             <div className="flex flex-row">
               <h2 className="flex-1 text-ellipsis text-sm font-bold">
-                JASON LEEE L.W.
+                {`${data?.data.first_name} ${data?.data.last_name}` ||
+                  data?.data.first_name}
               </h2>
               <IconChevronDown size={16} />
             </div>
-            <p className="text-xs">Sales Lead</p>
+            <p className="text-xs">{data?.data.email}</p>
           </div>
         </div>
       </DropdownMenuTrigger>

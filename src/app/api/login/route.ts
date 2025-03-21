@@ -1,13 +1,13 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { accounts } from "@/contants/accounts";
 
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
-
-    // Kirim request ke backend Laravel atau Express
-    const { data } = await axios.post("https://reqres.in/api/login", {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const { data } = await axios.post(`${API_URL}/login`, {
       email,
       password,
     });
@@ -18,6 +18,22 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
+
+    const userId = accounts.find((user) => user.email === email)?.id;
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Invalid credentials" },
+        { status: 401 }
+      );
+    }
+
+    (await cookies()).set("userId", `${userId}`, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60,
+      path: "/",
+    });
 
     (await cookies()).set("token", data.token, {
       httpOnly: true,

@@ -3,14 +3,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 export const useUsers = (searchQuery: string) => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery<IRespUser>({
     queryKey: ["users"],
     queryFn: async () => {
-      const response = await axios.get<IRespUser>(
-        "https://reqres.in/api/users"
-      );
+      const response = await axios.get<IRespUser>(`${API_URL}/users`);
       return response.data;
     },
     staleTime: 1000 * 60 * 60,
@@ -19,9 +19,9 @@ export const useUsers = (searchQuery: string) => {
   const mutation = useMutation({
     mutationFn: (data: IUser) => {
       if (data.id) {
-        return axios.put(`https://reqres.in/api/users/${data.id}`, data);
+        return axios.put(`${API_URL}/users/${data.id}`, data);
       } else {
-        return axios.post("https://reqres.in/api/users", data);
+        return axios.post(`${API_URL}/users`, data);
       }
     },
     onSuccess: (data, { id }) => {
@@ -40,7 +40,7 @@ export const useUsers = (searchQuery: string) => {
 
   const deleteMutation = useMutation({
     mutationFn: (data: { id?: number }) => {
-      return axios.delete(`https://reqres.in/api/users/${data.id}`);
+      return axios.delete(`${API_URL}/users/${data.id}`);
     },
     onSuccess: (data, { id }) => {
       queryClient.setQueryData(["users"], (oldData: any) => {

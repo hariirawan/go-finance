@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,6 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { IUser } from "@/types/user";
 
 const formSchema = z.object({
   first_name: z.string().min(2, {
@@ -43,18 +46,21 @@ export function UserForm({
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
-  defaultValue: any;
+  defaultValue: IUser;
   handleSubmit: (data: any) => void;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
       ...defaultValue,
     },
   });
+
+  useEffect(() => {
+    form.setValue("first_name", defaultValue.first_name);
+    form.setValue("last_name", defaultValue.last_name);
+    form.setValue("email", defaultValue.email);
+  }, [defaultValue]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     handleSubmit(values);

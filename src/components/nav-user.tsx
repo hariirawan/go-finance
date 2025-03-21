@@ -1,4 +1,4 @@
-import { IconChevronDown, IconUserCircle } from "@tabler/icons-react";
+import { IconChevronDown } from "@tabler/icons-react";
 import React from "react";
 
 import {
@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useLogout } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function NavUser() {

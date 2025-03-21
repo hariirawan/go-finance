@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Name
 
 ## Getting Started
 
-First, run the development server:
+Ikuti langkah-langkah berikut untuk menjalankan proyek setelah di-clone.
 
-```bash
-npm run dev
-# or
+### Prerequisites
+
+Pastikan Anda telah menginstal:
+
+- [Node.js](https://nodejs.org/) (versi terbaru disarankan)
+- [Yarn](https://yarnpkg.com/) atau [npm](https://www.npmjs.com/)
+
+### Instalasi
+
+1. Clone repository ini:
+   ```sh
+   git clone https://github.com/hariirawan/go-finance
+   ```
+2. Masuk ke direktori proyek:
+   ```sh
+   cd go-finance
+   ```
+3. Install dependencies:
+   ```sh
+   yarn install
+   ```
+   atau jika menggunakan npm:
+   ```sh
+   npm install
+   ```
+   atau jika menggunakan bun:
+   ```sh
+   bun install
+   ```
+
+### Menjalankan Proyek
+
+Jalankan proyek dengan perintah berikut:
+
+```sh
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+atau dengan npm:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Aplikasi akan berjalan di `http://localhost:3000` secara default.
 
-## Learn More
+## Struktur Folder
 
-To learn more about Next.js, take a look at the following resources:
+Berikut adalah struktur folder proyek dan penjelasan fungsinya:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+project-name/
+│── src/                   # Folder utama source code
+│   │── app/               # Konfigurasi utama aplikasi
+│   │── components/        # Komponen UI reusable
+│   │── constants/         # Konstanta global (misal: keys, enums)
+│   │── hooks/             # Custom hooks untuk state management dan fetching data
+│   │── lib/               # Modul atau utilitas tambahan
+│   │── providers/         # Konteks atau penyedia layanan aplikasi
+│   │── types/             # Definisi tipe TypeScript
+│   │── middleware.ts      # Middleware untuk menangani request atau authentication
+│── .env.example           # Contoh file environment variables
+│── package.json           # Konfigurasi dependencies proyek
+│── README.md              # Dokumentasi proyek
+│── tsconfig.json          # Konfigurasi TypeScript
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Teknologi yang Digunakan
 
-## Deploy on Vercel
+- **Axios**: Untuk fetching API
+- **Cookies**: Untuk menyimpan token autentikasi
+- **TanStack**: Untuk state management
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Konfigurasi Environment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Buat file `.env` di root proyek berdasarkan `.env.example` dan isi dengan konfigurasi API yang sesuai.
+
+```env
+NEXT_PUBLIC_API_URL=https://reqres.in/api
+```
+
+## Lisensi
+
+Proyek ini menggunakan lisensi [MIT](LICENSE).

@@ -1,4 +1,4 @@
-# Project Name
+# Project Name Go Finance
 
 ## Getting Started
 
@@ -55,7 +55,7 @@ Aplikasi akan berjalan di `http://localhost:3000` secara default.
 Berikut adalah struktur folder proyek dan penjelasan fungsinya:
 
 ```
-project-name/
+go-finance/
 │── src/                   # Folder utama source code
 │   │── app/               # Konfigurasi utama aplikasi
 │   │── components/        # Komponen UI reusable
@@ -79,7 +79,7 @@ project-name/
 
 ## Konfigurasi Environment
 
-Buat file `.env` di root proyek berdasarkan `.env.example` dan isi dengan konfigurasi API yang sesuai.
+Buat file `.env` di root proyek anda
 
 ```env
 NEXT_PUBLIC_API_URL=https://reqres.in/api

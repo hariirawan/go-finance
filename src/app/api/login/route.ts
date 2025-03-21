@@ -1,7 +1,7 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { accounts } from "@/contants/accounts";
+import { accounts } from "@/constants/accounts";
 
 export async function POST(req: Request) {
   try {

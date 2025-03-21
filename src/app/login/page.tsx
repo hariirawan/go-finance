@@ -3,6 +3,7 @@
 import AuthWrapper from "@/components/auth-wrapper";
 import LoadingIndicator from "@/components/loading-indicator";
 import { useLogin } from "@/hooks/useAuth";
+import { cn } from "@/lib/utils";
 import { IAuthCredentials } from "@/types/auth";
 import { IconLock, IconMail } from "@tabler/icons-react";
 import Link from "next/link";
@@ -10,7 +11,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const { register, handleSubmit } = useForm<IAuthCredentials>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAuthCredentials>();
 
   const { handleLogin, isProcessing } = useLogin();
 
@@ -23,7 +28,12 @@ export default function Login() {
           <p>Sign Up to Get Started</p>
         </div>
         <form className="grid gap-4" onSubmit={handleSubmit(handleLogin)}>
-          <div className="flex flex-row border border-gray-200 rounded-full w-full px-6 py-4">
+          <div
+            className={cn(
+              "flex flex-row border border-gray-200 rounded-full w-full px-6 py-4",
+              errors.email && "border-red-500"
+            )}
+          >
             <IconMail size={21} color="#333333" />
             <input
               type="email"
@@ -32,7 +42,12 @@ export default function Login() {
               {...register("email", { required: true })}
             />
           </div>
-          <div className="flex flex-row border border-gray-200 rounded-full w-full px-6 py-4">
+          <div
+            className={cn(
+              "flex flex-row border border-gray-200 rounded-full w-full px-6 py-4",
+              errors.password && "border-red-500"
+            )}
+          >
             <IconLock size={21} color="#333333" />
             <input
               type="password"

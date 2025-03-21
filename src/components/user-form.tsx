@@ -100,7 +100,7 @@ export function UserForm({
                   <FormItem>
                     <FormLabel>Last Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Input first name" {...field} />
+                      <Input placeholder="Input last name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -113,7 +113,7 @@ export function UserForm({
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Input first name" {...field} />
+                      <Input placeholder="Input Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

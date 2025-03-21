@@ -37,7 +37,7 @@ export default function Admin() {
 
       <div className="pt-24 px-2">
         <div className="container bg-white mx-auto">
-          <div className="p-3 flex flex-row justify-between">
+          <div className="p-3 flex flex-row justify-between ">
             <h2 className="text-2xl font-bold">Users</h2>
             <Button
               onClick={() => {
@@ -48,7 +48,7 @@ export default function Admin() {
               Add User
             </Button>
           </div>
-          <div className="flex flex-row items-center px-4 py-3 min-w-full">
+          <div className="flex flex-row items-center px-4 py-3 min-w-full border border-gray-200 border-b-0">
             <input
               type="text"
               placeholder="Search users"

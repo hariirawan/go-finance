@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useLogout } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
+import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function NavUser() {
   const { handleLogout } = useLogout();
@@ -20,7 +22,10 @@ export default function NavUser() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex flex-row border-l border-l-blue-700 items-center px-3 py-2 cursor-pointer">
-          <IconUserCircle size={40} className="text-white" />
+          <Avatar>
+            <AvatarImage src={data?.data.avatar} />
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
           <div className="flex flex-col text-white ml-3">
             <div className="flex flex-row">
               <h2 className="flex-1 text-ellipsis text-sm font-bold">

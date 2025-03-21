@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
   }
 
   // Jika sudah login tapi mengakses /login, redirect ke /admin
-  if (isLoginPage && token) {
+  if ((isLoginPage || isHomePage) && token) {
     return NextResponse.redirect(new URL("/admin", req.url));
   }
 

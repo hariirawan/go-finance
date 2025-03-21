@@ -1,6 +1,7 @@
 import { IRespUser, IUser } from "@/types/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "sonner";
 
 export const useUsers = (searchQuery: string) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -35,6 +36,11 @@ export const useUsers = (searchQuery: string) => {
             : [...oldData.data, data.data],
         };
       });
+      toast.success("Success", {
+        description: id
+          ? "Data has been successfully updated!"
+          : "Data has been successfully added!",
+      });
     },
   });
 
@@ -48,6 +54,9 @@ export const useUsers = (searchQuery: string) => {
         return {
           data: oldData.data.filter((user: IUser) => user.id !== id),
         };
+      });
+      toast.success("Deleted Success", {
+        description: "Data has been successfully deleted!",
       });
     },
   });

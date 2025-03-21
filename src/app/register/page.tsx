@@ -1,6 +1,7 @@
 "use client";
 import AuthWrapper from "@/components/auth-wrapper";
 import { useRegister } from "@/hooks/useAuth";
+import { cn } from "@/lib/utils";
 import { IAuthCredentials } from "@/types/auth";
 import { IconLock, IconMail, IconUser } from "@tabler/icons-react";
 import Link from "next/link";
@@ -8,9 +9,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const { register, handleSubmit } = useForm<
-    IAuthCredentials & { fullname: string }
-  >();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAuthCredentials & { fullname: string }>();
 
   const { handleRegister, isLoading } = useRegister();
 
@@ -22,7 +25,12 @@ export default function Login() {
           <p>Welcome Back</p>
         </div>
         <form className="grid gap-4" onSubmit={handleSubmit(handleRegister)}>
-          <div className="flex flex-row border border-gray-200 rounded-full px-6 py-4 ">
+          <div
+            className={cn(
+              "flex flex-row border border-gray-200 rounded-full w-full px-6 py-4",
+              errors.fullname && "border-red-500"
+            )}
+          >
             <IconUser size={21} color="#333333" />
             <input
               type="text"
@@ -32,7 +40,12 @@ export default function Login() {
               disabled={isLoading}
             />
           </div>
-          <div className="flex flex-row border border-gray-200 rounded-full px-6 py-4 ">
+          <div
+            className={cn(
+              "flex flex-row border border-gray-200 rounded-full w-full px-6 py-4",
+              errors.email && "border-red-500"
+            )}
+          >
             <IconMail size={21} color="#333333" />
             <input
               type="text"
@@ -43,7 +56,12 @@ export default function Login() {
               disabled={isLoading}
             />
           </div>
-          <div className="flex flex-row border border-gray-200 rounded-full px-6 py-4 ">
+          <div
+            className={cn(
+              "flex flex-row border border-gray-200 rounded-full w-full px-6 py-4",
+              errors.email && "border-red-500"
+            )}
+          >
             <IconLock size={21} color="#333333" />
             <input
               type="password"
